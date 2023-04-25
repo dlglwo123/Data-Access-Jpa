@@ -1,11 +1,14 @@
 package com.codestates.coffee.entity;
 
+import com.codestates.order.entity.OrderCoffee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -38,6 +41,22 @@ public class Coffee {
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
+
+    // ===== 연관 관계 매핑 ======
+
+    @OneToMany(mappedBy = "coffee")
+    private List<OrderCoffee> orderCoffees = new ArrayList<>();
+
+    public void addOrderCoffee(OrderCoffee orderCoffee){
+        orderCoffees.add(orderCoffee);
+    }
+
+    public Coffee(String korName,String engName,int price,String coffeeCode){
+        this.korName = korName;
+        this.engName = engName;
+        this.price = price;
+        this.coffeeCode = coffeeCode;
+    }
 
     // 커피 상태 추가
     public enum CoffeeStatus {

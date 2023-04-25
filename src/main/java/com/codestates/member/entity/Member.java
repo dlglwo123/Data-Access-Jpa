@@ -28,6 +28,12 @@ public class Member {
     @Column(length = 13, nullable = false, unique = true)
     private String phone;
 
+    public Member(String email,String name, String phone){
+        this.email = email;
+        this.name = name;
+        this.phone = phone;
+    }
+
     // 추가된 부분
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
@@ -38,23 +44,27 @@ public class Member {
 
     @Column(nullable = false, name = "LAST_MODIFIED_AT")
     private LocalDateTime modifiedAt = LocalDateTime.now();
-
+    // ======= Order 연관관계 매핑 ========
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    // ======== Stamp 연관관계 매핑 ============
+
+    @OneToOne
+    @JoinColumn(name = "STAMP_ID")
+    private Stamp stamp;
+
+    public void addStamp(Stamp stamp){
+        this.stamp = stamp;
+    }
 
     public Member(String email) {
         this.email = email;
     }
 
-    public Member(String email, String name, String phone) {
-        this.email = email;
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
 
     // 추가 된 부분
     public enum MemberStatus {

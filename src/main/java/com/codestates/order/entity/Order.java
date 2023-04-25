@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -27,11 +29,20 @@ public class Order {
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID") // Order 외래키와 Join 하는 Member 의 기본키
     private Member member;
 
     public void addMember(Member member) {
         this.member = member;
+    }
+
+    // =========================================
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderCoffee> orderCoffees = new ArrayList<>();
+
+    public void addOrderCoffee(OrderCoffee orderCoffee){
+        orderCoffees.add(orderCoffee);
     }
 
     public enum OrderStatus {
