@@ -1,5 +1,8 @@
 package com.codestates.member.entity;
 
+import com.codestates.coffee.entity.Coffee;
+import com.codestates.order.entity.Order;
+import com.codestates.order.entity.OrderCoffee;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,5 +41,15 @@ public class Stamp {
 
     public void addMember(Member member){
         this.member = member;
+    }
+
+
+    public void QuantityPlusStampCount(OrderCoffee orderCoffee,Member member){
+
+        int stamp = orderCoffee.getQuantity();
+
+        int memberStamp = member.getStamp().getStampCount();
+
+        stampCount = memberStamp + stamp;
     }
 }

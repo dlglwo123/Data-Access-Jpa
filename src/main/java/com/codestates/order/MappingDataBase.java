@@ -38,7 +38,7 @@ public class MappingDataBase {
 
         // member와 stamp 관계 매핑
         Member member = new Member("dlglwo123@naver.com","이희재","020-2302-2123");
-        Stamp stamp = new Stamp(1);
+        Stamp stamp = new Stamp();
         member.addStamp(stamp);
         stamp.addMember(member);
 
@@ -51,6 +51,7 @@ public class MappingDataBase {
         Coffee coffee = new Coffee("카라멜 라떼","Caramel Latte",4500,"CAF");
         OrderCoffee orderCoffee = new OrderCoffee(2);
 
+        stamp.QuantityPlusStampCount(orderCoffee,member);
 
         order.addOrderCoffee(orderCoffee);
         orderCoffee.addOrder(order);
